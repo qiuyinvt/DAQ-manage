@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<bean
+		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+
+	<!-- Spring读取属性文件信息 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<!-- 这里可以指定多个属性文件,加密保存属性文件(not complete) -->
+				<value>classpath:application.properties</value>
+			</list>
+		</property>
+		<property name="fileEncoding" value="utf-8" />
+	</bean>
+	
+	<!-- <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" >
+		   <property name="encodeHashAsBase64" value="false" />   
+	</bean> -->
+
+	<context:annotation-config />	
+	
+	<context:component-scan base-package="daq.manage.service" >
+        
+    </context:component-scan>
+
+	<bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+		<property name="driver" value="${driver}" />
+		<property name="driverUrl" value="${driverUrl}" />
+		<property name="user" value="${username}" />
+		<property name="password" value="${password}" />
+		<property name="houseKeepingSleepTime" value="30000" />
+		<property name="maximumConnectionCount" value="${maximum-connection-count}" />
+		<property name="minimumConnectionCount" value="${minimum-connection-count}" />
+		<property name="trace" value="${trace}" />
+	</bean>
+
+	<bean id="readDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl">
+			<value><![CDATA[${driverUrl}]]></value>
+		</property>
+		<property name="user" value="${username}" />
+		<property name="password" value="${password}" />
+		<property name="maxPoolSize" value="12" />
+		<property name="minPoolSize" value="0" />
+		<property name="maxStatements" value="100" />
+		<property name="initialPoolSize" value="3" />
+		<property name="maxIdleTime" value="10" />
+		<property name="idleConnectionTestPeriod" value="10" />
+		<property name="testConnectionOnCheckin" value="true" />
+		<property name="testConnectionOnCheckout" value="false" />
+		<property name="preferredTestQuery" value="SELECT 1 FROM DUAL" />
+	</bean>
+
+	<context:spring-configured />
+
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- <property name="configLocation" value="classpath:mybatis-config.xml"></property> -->
+		<property name="dataSource" ref="readDataSource"></property>
+		<!-- 扫描model包 使用别名 -->
+		<property name="typeAliasesPackage" value="daq.manage.model" />
+		<property name="mapperLocations"
+			value="classpath*:daq/manage/dao/**/*.xml" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="daq.manage.dao" />
+	</bean>
+
+	<!-- 事务相关控制 -->
+	<bean name="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 使用注解方式定义事务 -->
+	<tx:annotation-driven proxy-target-class="true"
+		transaction-manager="transactionManager" />
+
+</beans>
