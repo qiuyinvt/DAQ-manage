@@ -19,7 +19,7 @@
 </head>
 <body class="skin-blue fixed">
 	<header class="main-header">
-	  <a href="../../index2.html" class="logo">
+	  <a href="<%=request.getContextPath()%>/admin/view" class="logo">
 	    <!-- LOGO -->
 	    数据监测系统
 	  </a>
@@ -32,18 +32,18 @@
 	
 	    <!-- Sidebar Menu -->
 	    <ul class="sidebar-menu">
-	      <li class="header">系统管理</li>
+	      <!-- <li class="header">控制面板</li> -->
 	      <!-- Optionally, you can add icons to the links -->
-	      <li class="active"><a href="#"><span>数据监测</span></a><</li>
-	      <li class="active"><a href="#"><span>用户管理</span></a><</li>
-	      <!-- <li><a href="#"><span>Another Link</span></a></li>
-	      <li class="treeview">
+	      <li class="active" page="/admin/view"><a href="<%=request.getContextPath()%>/admin/view"><span>数据监测</span></a></li>
+	      <li class="active" page="/admin/user/list"><a href="<%=request.getContextPath()%>/admin/user/list"><span>用户管理</span></a></li>
+	      
+	     <!--  <li class="treeview active menu-open">
 	        <a href="#"><span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
 	        <ul class="treeview-menu">
 	          <li><a href="#">Link in level 2</a></li>
 	          <li><a href="#">Link in level 2</a></li>
 	        </ul>
-	      </li> -->
+	      </li>  -->
 	    </ul><!-- /.sidebar-menu -->
 	
 	  </div><!-- /.sidebar -->
@@ -51,9 +51,14 @@
 </body>
 	<script>
 	
-		jQuery(document).ready(function(){			
-			var page = "${page}";
-			jQuery(".page_"+page).addClass("active").siblings().removeClass("active");	
+		jQuery(document).ready(function(){	
+			var page = document.location.href;
+			jQuery(".sidebar-menu li").each(function(){
+				if(page.indexOf(jQuery(this).attr("page"))!= -1){
+					jQuery(this).addClass("active").siblings().removeClass("active");
+					return ;
+				}
+			});
 		});
 		
 	</script>

@@ -45,7 +45,7 @@
 															<a href="/admin/user/disabled?id=${item.id}">已启用</a>
 														</c:when>
 														<c:otherwise>
-															<a href="/admin/user/enabled?id=${item.id}">已禁用</a>
+															<a style="color:#f56954" href="/admin/user/enabled?id=${item.id}">已禁用</a>
 														</c:otherwise>
 													</c:choose>
 												</td>
@@ -54,7 +54,7 @@
 															<a href="/admin/user/noSend?id=${item.id}">已开启</a>
 														</c:when>
 														<c:otherwise>
-															<a href="/admin/user/send?id=${item.id}">已关闭</a>
+															<a style="color:#f56954" href="/admin/user/send?id=${item.id}">已关闭</a>
 														</c:otherwise>
 													</c:choose></td>
 												<td>
