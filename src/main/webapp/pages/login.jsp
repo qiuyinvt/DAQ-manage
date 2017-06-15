@@ -23,7 +23,7 @@
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
-    <a href="../../index2.html">数据监测系统</a>
+    <a href="<%=request.getContextPath()%>/login/index">数据监测系统</a>
   </div>
 
   <div class="register-box-body">
@@ -57,10 +57,10 @@
 </body>
 <script>
 	jQuery(function(){
-		jQuery(".btn-primary").click(function(){
-			if(CODES.validate()){
-				jQuery("#form").submit();
-			}
+		CODES.form({
+			id:"form",
+			btn:"btn-primary",
+			url:"/login/login"
 		});
 	});
 </script>

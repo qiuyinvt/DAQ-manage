@@ -15,7 +15,7 @@
 	<script src="<%=request.getContextPath()%>/style/jquery/jquery.min.js"> </script>
 	<script src="<%=request.getContextPath()%>/style/weui/js/jquery-weui.min.js"> </script>
 	<script src="<%=request.getContextPath()%>/style/bootstrap/js/bootstrap.min.js"> </script>
-	<script src="<%=request.getContextPath()%>/style/common/base.js"> </script>
+	<script src="<%=request.getContextPath()%>/style/common/base.js?v=1"> </script>
 </head>
 <body class="skin-blue fixed">
 	<header class="main-header">

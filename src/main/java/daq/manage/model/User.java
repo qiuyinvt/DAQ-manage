@@ -1,99 +1,85 @@
 package daq.manage.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+public class User {
+    private Integer id;
 
-public class User implements UserDetails{
-	private Integer id;
-	
-	private String account;
-	
-	private String password;
-	
-	private String role;
+    private String name;
 
-	public Integer getId() {
-		return id;
-	}
+    private String account;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    private String password;
 
-	public String getAccount() {
-		return account;
-	}
+    private boolean isSend;
 
-	public void setAccount(String account) {
-		this.account = account;
-	}
+    private boolean enabled;
 
-	public String getPassword() {
-		return password;
-	}
+    private String role;
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    private Date created;
 
-	public String getRole() {
-		return role;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	 /**权限管理*/
-    private Set<String> roles = new HashSet<String>();
-	
-	public Set<String> getRoles() {
-		return roles;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void addRole(String role) {
-		getRoles().add(role);
-	}
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
 
-	public void setRoles(String roles) {
-		String[] arr = roles.split(",");
-		for(String role : arr){
-			addRole(role);
-		}		
-	}
-	
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Collection<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();		
-		for (String role : roles) {
-			auths.add(new SimpleGrantedAuthority(role));
-		}
-		return auths;
-	}
+    public String getAccount() {
+        return account;
+    }
 
-	public String getUsername() {
-		return null;
-	}
+    public void setAccount(String account) {
+        this.account = account == null ? null : account.trim();
+    }
 
-	public boolean isAccountNonExpired() {
-		return false;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public boolean isAccountNonLocked() {
-		return false;
-	}
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
 
-	public boolean isCredentialsNonExpired() {
-		return false;
-	}
+    public boolean getIsSend() {
+        return isSend;
+    }
 
-	public boolean isEnabled() {
-		return false;
-	}
-	
+    public void setIsSend(boolean isSend) {
+        this.isSend = isSend;
+    }
+
+    public boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role == null ? null : role.trim();
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 }

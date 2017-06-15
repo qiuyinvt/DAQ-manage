@@ -2,7 +2,8 @@ var CODES = CODES || {};
 		CODES = (function(){
 			CODES.form = function(param){
 				jQuery("."+param.btn).click(function(){
-					if(validate()){
+					var succ = validate();
+					if(param.before() && succ ){
 						$.ajax({
 							type:'get',
 				            url:param.url,

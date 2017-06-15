@@ -3,12 +3,16 @@
 <mapper namespace="daq.manage.dao.UserMapper" >
   <resultMap id="BaseResultMap" type="daq.manage.model.User" >
     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="account" property="account" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="is_send" property="isSend" jdbcType="TINYINT" />
+    <result column="enabled" property="enabled" jdbcType="TINYINT" />
     <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, account, password ,role
+    id, name, account, password, is_send, enabled, role, created
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -16,14 +20,34 @@
     from user
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getUserByAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where account = #{account,jdbcType=VARCHAR}
+  </select>
+  <select id="getUserByLogin" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where account = #{0} and password = #{1}
+  </select>
+  <select id="getAllList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="daq.manage.model.User" >
-    insert into user (id, account, password, role)
-    values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{role,jdbcType=VARCHAR})
+    insert into user (id, name, account, 
+      password, is_send, enabled, 
+      role, created)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{isSend,jdbcType=TINYINT}, #{enabled,jdbcType=TINYINT}, 
+      #{role,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="daq.manage.model.User" >
     insert into user
@@ -31,54 +55,91 @@
       <if test="id != null" >
         id,
       </if>
+      <if test="name != null" >
+        name,
+      </if>
       <if test="account != null" >
         account,
       </if>
       <if test="password != null" >
         password,
-      </if>      
+      </if>
+      <if test="isSend != null" >
+        is_send,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
       <if test="role != null" >
-        role
+        role,
+      </if>
+      <if test="created != null" >
+        created,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
       <if test="account != null" >
         #{account,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
+      <if test="isSend != null" >
+        #{isSend,jdbcType=TINYINT},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=TINYINT},
+      </if>
       <if test="role != null" >
         #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="daq.manage.model.User" >
     update user
     <set >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="account != null" >
-        #{account,jdbcType=VARCHAR},
+        account = #{account,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
-        #{password,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="isSend != null" >
+        is_send = #{isSend,jdbcType=TINYINT},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=TINYINT},
       </if>
       <if test="role != null" >
-        #{role,jdbcType=VARCHAR},
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="daq.manage.model.User" >
     update user
-    set account = #{account,jdbcType=VARCHAR},
+    set name = #{name,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      role = #{role,jdbcType=VARCHAR}
+      is_send = #{isSend,jdbcType=TINYINT},
+      enabled = #{enabled,jdbcType=TINYINT},
+      role = #{role,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="queryPageList" resultMap="BaseResultMap" parameterType="java.util.Map">
@@ -97,4 +158,14 @@
   	from 
   		user
   </select>
+  <update id="updateEnabled">
+  	update user 
+  	set enabled = #{1}
+  	where id = #{0}
+  </update>
+  <update id="updateIsSend">
+  	update user 
+  	set is_send = #{1}
+  	where id = #{0}
+  </update>
 </mapper>
