@@ -73,11 +73,11 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-		<dependency>
+	<!-- 	<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-ehcache</artifactId>
 			<version>1.0.3</version>
-		</dependency>
+		</dependency> -->
 
 		<!-- 数据库 -->
 		<dependency>
