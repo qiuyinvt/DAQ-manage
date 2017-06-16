@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class BaseController {
@@ -47,6 +48,36 @@ public class BaseController {
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("page", page);
 		model.addAttribute("PAGE_COUNT", countPage);
+		return param;
+	}
+	
+	/**
+	 * 分页处理
+	 */
+	public Map<String, Object> queryPageParamInit(HttpServletRequest request,ModelAndView model,int count){
+		Map<String, Object> param = new HashMap<String, Object>();
+		int page = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")):1;
+		param.put("PAGE_LIMIT", PAGE_LIMIT);	
+		param.put("PAGE_INDEX", page);
+		int countPage = count/PAGE_LIMIT;
+		if(count % PAGE_LIMIT >0){
+			countPage++;
+		}
+		List<String> pagination = new ArrayList<String>();
+		int start = page - PAGE_SIZE;
+		start = page <= PAGE_SIZE ? 1 : start; 
+		start = page > countPage - PAGE_SIZE ? countPage - 2 * PAGE_SIZE: start; 
+		if(start < 1){
+			start = 1;
+		}
+		for(int i=start ; i < start + PAGE_SIZE * 2 + 1 ;i++){	
+			if(i <= countPage){
+				pagination.add("" + i);			
+			}
+		}	
+		model.addObject("pagination", pagination);
+		model.addObject("page", page);
+		model.addObject("PAGE_COUNT", countPage);
 		return param;
 	}
 }
