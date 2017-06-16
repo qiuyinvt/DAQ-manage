@@ -63,6 +63,6 @@ public class DateUntil {
 	public static void main(String[] args) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss");
-        System.out.println(dateFormat.format(DateMinute(new Date(),20,false)));
+      //  System.out.println(dateFormat.format(DateMinute(new Date(),20,false)));
 	}
 }

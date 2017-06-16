@@ -9,10 +9,11 @@
     <result column="is_send" property="isSend" jdbcType="TINYINT" />
     <result column="enabled" property="enabled" jdbcType="TINYINT" />
     <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
     <result column="created" property="created" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, account, password, is_send, enabled, role, created
+    id, name, account, password, is_send, enabled, role, created,salt
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -54,10 +55,10 @@
   <insert id="insert" parameterType="daq.manage.model.User" >
     insert into user (id, name, account, 
       password, is_send, enabled, 
-      role, created)
+      role, created,salt)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{isSend,jdbcType=TINYINT}, #{enabled,jdbcType=TINYINT}, 
-      #{role,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP})
+      #{role,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}),##{salt,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="daq.manage.model.User" >
     insert into user

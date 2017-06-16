@@ -10,6 +10,8 @@ public class User {
     private String account;
 
     private String password;
+    
+    private String salt;
 
     private boolean isSend;
 
@@ -82,4 +84,12 @@ public class User {
     public void setCreated(Date created) {
         this.created = created;
     }
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
 }

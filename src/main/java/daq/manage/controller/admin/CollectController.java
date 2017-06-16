@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -22,10 +23,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import daq.manage.controller.BaseController;
+import daq.manage.export.ExportXls;
 import daq.manage.model.Collect;
 import daq.manage.model.User;
 import daq.manage.service.CollectService;
 import daq.manage.utils.DateUntil;
+import daq.manage.utils.StringUtils;
 
 @Controller
 @RequestMapping(value = "admin/collect")
@@ -45,10 +48,47 @@ public class CollectController extends BaseController{
 			HttpServletResponse response){
 		ModelAndView mv=new ModelAndView("/admin/collect/collectList");
 //		System.out.println(loginUser);
-		Map<String, String> map =new HashMap<String, String>();
+		Map map =new HashMap();
+		subForm(request, map);
 		Map<String, Object> param = this.queryPageParamInit(request,mv,collectService.getTotal(map));
+		subForm(request, param);
 		List<Collect> entitys = collectService.queryPageList(param);
-		return mv.addObject("entitys", entitys);
+		return mv.addObject("entitys", entitys).addObject("types",map.get("type")).addAllObjects(param);
+	}
+	
+	public void subForm(HttpServletRequest request,Map map)
+	{
+		String type=request.getParameter("types");
+		String reservation=request.getParameter("reservation");
+//		System.out.println(reservation);
+//		String beginCreateTime=request.getParameter("beginCreateTime");
+//		String endCreateTime=request.getParameter("endCreateTime");
+		
+		if(!StringUtils.isEmpty(type))
+		{
+			map.put("type", type);
+		}
+		if(!StringUtils.isEmpty(reservation))
+		{
+			map.put("reservation", reservation);
+			String[] strs=reservation.split("-");
+			Date beginCreateTime=DateUntil.str2Date(strs[0], "MM/dd/yyyy");
+			Date endCreateTime=DateUntil.str2Date(strs[1], "MM/dd/yyyy");
+			map.put("beginCreateTime", beginCreateTime);
+			map.put("endCreateTime", endCreateTime);
+		}
+//		if(!StringUtils.isEmpty(endCreateTime))
+//		{
+//			//map.put("endCreateTime", endCreateTime);
+//		}
+	}
+	
+	@RequestMapping(value = "/export")
+	public void export(HttpServletRequest request,
+			HttpServletResponse response) throws Exception{
+		Map map =new HashMap();
+		subForm(request, map);
+		ExportXls.exportCollect(response, collectService, map);
 	}	
 	
 	@RequestMapping(value="/data",method=RequestMethod.POST)
@@ -106,5 +146,9 @@ public class CollectController extends BaseController{
 		}
 		obj.put("XYZ_1", arrays);
 		System.out.println(obj);
+//		JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher((new String[] { "yyyy-MM-dd HH:mm:ss" })));
+//	    
+//		String json=RequestUtil.getString(request, "json");
+//		JSONObject obj = JSONObject.fromObject(json);
 	}
 }

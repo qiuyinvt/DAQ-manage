@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class JsonResult<T> implements Serializable {
     private boolean success;
     private String msg;
+    private String url;
     private T data;
 
     public JsonResult() {
@@ -45,8 +46,21 @@ public class JsonResult<T> implements Serializable {
 		this.data = data;
 	}
 
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public JsonResult(boolean success, String msg) {
         this.success = success;
         this.msg = msg;
     }
+	public JsonResult(boolean success, String msg,String url) {
+		this.success = success;
+		this.msg = msg;
+		this.url=url;
+	}
 }
