@@ -3,7 +3,10 @@ var CODES = CODES || {};
 			CODES.form = function(param){
 				jQuery("."+param.btn).click(function(){
 					var succ = validate();
-					if(param.before() && succ ){
+					if(param.hasOwnProperty("before")){
+						succ = param.before() && succ;
+					}
+					if( succ ){
 						$.ajax({
 							type:'get',
 				            url:param.url,

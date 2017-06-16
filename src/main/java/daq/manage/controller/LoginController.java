@@ -25,7 +25,7 @@ public class LoginController {
 	public ModelAndView index(HttpServletRequest request,
 			HttpServletResponse response, ModelAndView mv){
 		mv.setViewName("/login");
-		System.out.println(userService.getAllList().size());
+		System.out.println(userService.getSendList().size());
 		return mv;
 	}
 	
@@ -37,7 +37,12 @@ public class LoginController {
 		map.put("url", "/admin/view");
 		User user = userService.getUserByLogin(request.getParameter("account"), request.getParameter("password"));
 		if(user != null){
-			request.getSession().setAttribute("user", user);
+			if(user.getEnabled()){
+				request.getSession().setAttribute("user", user);
+			}else{
+				map.put("success", false);
+				map.put("msg", "该账号已被禁用，请联系管理员!");
+			}
 		}else{
 			map.put("success", false);
 			map.put("msg", "账号或密码错误!");

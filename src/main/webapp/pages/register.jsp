@@ -51,7 +51,7 @@
       </div>
       <div class="row">
         <div class="col-xs-8">
-            <a href="#">&nbsp;&nbsp;忘记密码</a>
+            <a href="<%=request.getContextPath()%>/login/index">&nbsp;&nbsp;去登录</a>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">

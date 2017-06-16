@@ -15,7 +15,7 @@
 	<script src="<%=request.getContextPath()%>/style/jquery/jquery.min.js"> </script>
 	<script src="<%=request.getContextPath()%>/style/weui/js/jquery-weui.min.js"> </script>
 	<script src="<%=request.getContextPath()%>/style/bootstrap/js/bootstrap.min.js"> </script>
-	<script src="<%=request.getContextPath()%>/style/common/base.js?v=1"> </script>
+	<script src="<%=request.getContextPath()%>/style/common/base.js?v=2"> </script>
 </head>
 <body class="skin-blue fixed">
 	<header class="main-header">
@@ -52,9 +52,13 @@
 	<script>
 	
 		jQuery(document).ready(function(){	
-			var page = document.location.href;
+			//高亮菜单标签
+			var tag = jQuery("[tag]").attr("tag");
+			if(tag == "" || tag == undefined){
+				tag = window.location.href;
+			}
 			jQuery(".sidebar-menu li").each(function(){
-				if(page.indexOf(jQuery(this).attr("page"))!= -1){
+				if(tag.indexOf(jQuery(this).attr("page"))!= -1){
 					jQuery(this).addClass("active").siblings().removeClass("active");
 					return ;
 				}

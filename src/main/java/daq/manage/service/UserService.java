@@ -34,4 +34,8 @@ public class UserService extends BaseService<User, Integer>{
 	public void updateIsSend(Integer id , Boolean enabled){
 		userDao.updateIsSend(id,enabled);
 	}
+	
+	public List<User> getSendList(){
+		return userDao.getSendList();
+	}
 }

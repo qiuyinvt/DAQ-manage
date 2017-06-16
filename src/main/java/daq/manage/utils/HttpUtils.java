@@ -27,20 +27,11 @@ import org.apache.http.util.EntityUtils;
 
 import com.alibaba.fastjson.JSONObject;
 
-import daq.manage.enums.CollectTypeEnum;
-
 public class HttpUtils {
 	public static void main(String[] args) throws Exception {
 		String url = "http://v1.avatardata.cn/Sms/Send";
-		JSONObject json = new JSONObject();
-		json.put("id", "qiuyinvt");
-		json.put("pwd", "120914jiao");
-		json.put("to", "18750753932");
-		json.put("content", URLEncoder.encode("【数据监测】半小时内均值为60，峰值为80.", "gb2312"));
-		// System.out.println(new
-		// String("【数据监测】半小时内均值为60，峰值为80.".getBytes("UTF-8"),"gb2312"));
-		// System.out.println(json.toJSONString());
 		//System.out.println(get(url, "key=f31b147fe0744b6eb7e6ed3467a27325&mobile=18750753932&templateId=b7feb3626137423fae65e29178e54af7&param=20,30"));
+		MsgUtil.sendMsg("18750753932", "69,90");
 	}
 
 	public static String get(String path, String params) throws Exception {

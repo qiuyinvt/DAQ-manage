@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
+	default-lazy-init="true">
+	
+	<bean id="msgThread" class="daq.manage.quartz.MsgThread" />
+    <bean id="msgSend" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="msgThread" />
+        <property name="targetMethod" value="start" />
+        <property name="concurrent" value="false" />
+    </bean>
+    <bean id="msgSendTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="msgSend" />
+        <property name="cronExpression" value="0/5 * * * * ?" />
+    </bean> 
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> 
+	  <property name="triggers">   
+	   <list> 
+	    <ref local="msgSendTrigger" /> 
+	   </list> 
+	  </property> 
+	 </bean>
+</beans>
+

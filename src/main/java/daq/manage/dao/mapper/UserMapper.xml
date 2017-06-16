@@ -32,11 +32,21 @@
     from user
     where account = #{0} and password = #{1}
   </select>
+  
   <select id="getAllList" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from user
   </select>
+  
+   <select id="getSendList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where 
+    	enabled = 1 and is_send = 1
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user
     where id = #{id,jdbcType=INTEGER}
@@ -149,12 +159,15 @@
 		user
 	where
 		1=1 
+		<if test="account != null" >
+			and account like CONCAT('%','${account}','%' )  
+		</if>
 	limit
 		#{PAGE_START},#{PAGE_LIMIT}
   </select>
   <select id="count" resultType="int">
   	select 
-  		count(*)
+  		count(1)
   	from 
   		user
   </select>
