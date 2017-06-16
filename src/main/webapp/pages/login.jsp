@@ -25,7 +25,7 @@
   <div class="register-logo">
     <a href="<%=request.getContextPath()%>/login/index">数据监测系统</a>
   </div>
-
+ 
   <div class="register-box-body">
     <p class="login-box-msg">用户登录</p>
     <form id="form" action="/login/login" method="post">
