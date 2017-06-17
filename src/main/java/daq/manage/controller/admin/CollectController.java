@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,7 +35,7 @@ public class CollectController extends BaseController{
 	private CollectService collectService;
 	
 	@RequestMapping(value = "/view")
-	public ModelAndView test(HttpServletRequest request,
+	public ModelAndView view(HttpServletRequest request,
 			HttpServletResponse response, ModelAndView mv){	
 		mv.setViewName("/admin/collect/index");
 		return mv;
@@ -53,11 +54,12 @@ public class CollectController extends BaseController{
 	
 	@RequestMapping(value="/data",method=RequestMethod.POST)
 	@ResponseBody
-	public Object getData(HttpServletRequest request,
+	public Object getData(@RequestParam Integer hour,HttpServletRequest request,
 			HttpServletResponse response)
 	{
 		Map<String, String> map =new HashMap<String, String>();
-		List<Collect> list=collectService.getALLCollect(map);
+		map.put("hour", hour.toString());
+		List<Collect> list=collectService.getList(map);
 		JSONObject obj=new JSONObject();
 		JSONArray XYZ_1=new JSONArray();
 		JSONArray XYZ_2=new JSONArray();

@@ -11,4 +11,5 @@ public interface CollectMapper extends BaseDao<Collect, Long>{
 
 	public Integer getTotal(Map<String, String> map); 
    
+	public List<Collect> getList(Map<String, String> map);
 }

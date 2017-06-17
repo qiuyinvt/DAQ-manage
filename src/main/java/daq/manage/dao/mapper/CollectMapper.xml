@@ -117,4 +117,14 @@
 	limit
 		#{PAGE_START},#{PAGE_LIMIT}
   </select>
+  
+  <select id="getList" resultMap="BaseResultMap" >
+    select  
+    <include refid="Base_Column_List" />
+    from 
+    	collect
+    where
+    	unix_timestamp(created) > unix_timestamp(NOW()) - #{hour} * 60 * 60
+    order by created  
+  </select>
 </mapper>
