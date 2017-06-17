@@ -13,32 +13,40 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="box">
-				<!-- <div class="box-header">
-					<h3 class="box-title">用户列表</h3>
-				</div> -->
-				<a herf="javascript:void(0)" id="exportBtn">导出</a>
-				<form action="/admin/collect/list" id="searchForm">
-					<div>
-						<div class="input-group">
-							<div class="input-group-addon">
-								<i class="fa fa-calendar"></i>
+				<div class="box-header">
+					<!-- <h3 class="box-title">用户列表</h3> -->
+				</div>
+				<div class="row col-md-12">
+					<form action="/admin/collect/list" id="searchForm">
+						<div class="col-xs-3">
+							<div class="input-group">
+								<input type="text" class="form-control" name="types"
+									value="${types}" placeholder="输入类型" value="${tpye}">
 							</div>
-							<input type="text" class="form-control pull-right" name="reservation"
-								id="reservation" value="${reservation}">
 						</div>
-						<!-- /.input group -->
-					</div>
-					<div class="input-group margin col-xs-3">
-						<input type="text" class="form-control" name="types"
-							value="${types}" placeholder="输入类型" value="${tpye}"> <span
-							class="input-group-btn">
+						<div class="col-xs-4">
+							<div class="input-group">
+								<input type="text" class="form-control pull-right" name="reservation"
+									id="reservation" value="${reservation}">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-time"></i>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-2">
 							<button type="submit" class="btn btn-info btn-flat">
 								<i class="glyphicon glyphicon-search"></i>查询
 							</button>
-						</span>
-					</div>
-
-				</form>
+						</div>
+						<div class="col-xs-2">
+							<button id="exportBtn" type="button" class="btn btn-block btn-warning glyphicon glyphicon-floppy-save">导出</button>
+						</div>
+						<!-- <a href="javascript:void(0)" id="exportBtn" class="pull-right btn btn-social-icon btn-bitbucket">
+			                <i class="glyphicon glyphicon-floppy-save">导出</i>
+			            </a> -->
+					</form>
+				</div>
+				<br>
 				<!-- /.box-header -->
 				<div class="box-body">
 					<div class="box-body">

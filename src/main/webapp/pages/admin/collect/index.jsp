@@ -15,6 +15,16 @@
 				<div class="box-header">
 					<h3 class="box-title">实时数据</h3>
 				</div>
+				<div class="form-group col-md-3 pull-right">
+					<select id="hour" class="form-control">
+						<option value="1">显示1小时内数据</option>
+						<option value="2">显示2小时内数据</option>
+						<option value="6">显示6小时内数据</option>
+						<option value="12">显示12小时内数据</option>
+						<option value="24">显示24小时内数据</option>
+					</select>
+				</div>
+				<br>
 				<!-- /.box-header -->
 				<div class="box-body" id="main" style="width: 100%;height:800px;"></div>
 			</div>
@@ -23,20 +33,26 @@
 	</section>
 </div>
 <script>
+var json = {"hour":1};
 $(function() {
+	$("#hour").change(function(){
+		json.hour = $(this).val();
+		initData();
+	});
+	
 	var myChart = echarts.init(document.getElementById('main'));
 	myChart.setOption(option);
 	initData();
  	setInterval(function () {
  		initData();
-	}, 5000); 
+	}, 1000); 
 	
 	
 	function initData() {
 	var url="data";
 	 $.ajax({
          url:url,
-         //data:json,
+         data: json,
          type: 'POST',
          success: function(data1) {
         	 var datas=JSON.parse(data1)
