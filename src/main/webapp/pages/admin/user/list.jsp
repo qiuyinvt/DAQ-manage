@@ -38,7 +38,7 @@
 											<th>编号</th>
 											<th>姓名</th>
 											<th>账号</th>
-											<th>密码</th>
+										<!-- 	<th>密码</th> -->
 											<th>账号状态</th>
 											<th>接收短信</th>
 											<th>操作</th>
@@ -50,7 +50,7 @@
 												<td>${item.id}</td>
 												<td>${item.name}</td>
 												<td>${item.account}</td>
-												<td>${item.password}</td>
+											<%-- 	<td>${item.password}</td> --%>
 												<td>
 													<c:choose>
 														<c:when test="${item.enabled}">

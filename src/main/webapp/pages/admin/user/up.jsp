@@ -18,17 +18,17 @@
 				<form id="form">
 	              <div class="box-body">
 	                <div class="form-group">
-	                  <label for="name">名称</label>
+	                  <label for="name">用户名</label>
 	                  <input style="display:none;" type="text" class="form-control" name="id" validate="required" value="${entity.id}">
-	                  <input type="text" class="form-control" id="name"  name="name"  placeholder="名称" validate="required" value="${entity.name}">
+	                  <input type="text" class="form-control" id="name"  name="name"  placeholder="用户名" validate="required" value="${entity.name}">
 	                </div>
 	                <div class="form-group">
-	                  <label for="account">手机号</label>
-	                  <input type="text" class="form-control" id="account" name="account" placeholder="手机号" validate="required" value="${entity.account}">
+	                  <label for="account">账号</label>
+	                  <input type="text" class="form-control" id="account" readonly="readonly" name="account" placeholder="账号" validate="required" value="${entity.account}">
 	                </div>
 	                <div class="form-group">
 	                  <label for="password">密码</label>
-	                  <input type="text" class="form-control" id="password" name="password" placeholder="密码" validate="required" value="${entity.password}">
+	                  <input type="text" class="form-control" id="password" name="password" placeholder="密码" validate="required" value="${entity.salt}">
 	                </div>
 	              </div>
 	              <div class="box-footer">

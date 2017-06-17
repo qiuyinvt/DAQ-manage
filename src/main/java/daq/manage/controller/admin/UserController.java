@@ -16,8 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 
+import daq.manage.annotation.CurrentUser;
 import daq.manage.controller.BaseController;
 import daq.manage.model.User;
+import daq.manage.security.PasswordService;
 import daq.manage.service.UserService;
 
 
@@ -37,6 +39,8 @@ public class UserController extends BaseController{
 	@RequestMapping(value = "/list")
 	public String list(HttpServletRequest request,
 			HttpServletResponse response, Model model){
+//		User user=(User)request.getAttribute("user");
+//		System.out.println(user.getAccount());
 		Map<String, Object> param = this.queryPageParamInit(request,model,userService.count());
 		param.put("account", request.getParameter("account"));
 		List<User> entitys = userService.queryPageList(param);
@@ -60,16 +64,17 @@ public class UserController extends BaseController{
 	}
 	
 	@RequestMapping(value = "/save")
-	public @ResponseBody Map<String,Object> save(@RequestParam Integer id,@RequestParam String name ,@RequestParam String account
+	public @ResponseBody Map<String,Object> save(HttpServletRequest request,@RequestParam Integer id,@RequestParam String name ,@RequestParam String account
 			,@RequestParam String password){
 		JSONObject json = new JSONObject();
 		json.put("success", true);
 		json.put("url", "/admin/user/list");
-		User entity = new User();
+		User entity = userService.getUserByAccount(account);
 		entity.setId(id);
 		entity.setAccount(account);
 		entity.setName(name);
-		entity.setPassword(password);
+		entity.setPassword(PasswordService.getEncryptPassword(password, password));
+		entity.setSalt(password);
 		userService.updateByPrimaryKeySelective(entity);;
 		return json;
 	}

@@ -27,6 +27,10 @@
 	    <!-- LOGO -->
 	    数据监测系统
 	  </a>
+	  <a href="<%=request.getContextPath()%>/login/logout" >
+	    <!-- LOGO -->
+		 退出
+	  </a>
 	  <nav class="navbar navbar-static-top" role="navigation"></nav>
 	</header>
 	

@@ -41,6 +41,12 @@ public class PasswordService {
                 hashIterations).toHex();
     }
     
+    public static String getEncryptPassword (String password, String credentialsSalt)
+    {
+    	PasswordService passwordService=new PasswordService();
+    	return passwordService.encryptPassword(password, credentialsSalt);
+    }
+    
     public static void main(String[] args) {
     	PasswordService passwordService=new PasswordService();
     	String ss=passwordService.genreateSalt();

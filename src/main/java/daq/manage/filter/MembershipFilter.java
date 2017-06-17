@@ -4,6 +4,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.web.filter.PathMatchingFilter;
 
 import daq.manage.annotation.Constants;
+import daq.manage.model.User;
 import daq.manage.service.MembershipFacade;
 
 import javax.annotation.Resource;
@@ -23,7 +24,8 @@ public class MembershipFilter extends PathMatchingFilter {
     protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue)
             throws Exception {
         String account = (String) SecurityUtils.getSubject().getPrincipal();
-        request.setAttribute(Constants.CURRENT_USER, membershipFacade.getUser(account));
+        User user=membershipFacade.getUser(account);
+        request.setAttribute(Constants.CURRENT_USER, user);
         return true;
     }
 }

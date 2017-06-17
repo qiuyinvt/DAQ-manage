@@ -28,6 +28,8 @@
 							<div class="input-group">
 								<input type="text" class="form-control pull-right" name="reservation"
 									id="reservation" value="${reservation}">
+								<input type="hidden" class="form-control pull-right" 
+									id="reservations" value="${reservation}">
 								<div class="input-group-addon">
 									<i class="glyphicon glyphicon-time"></i>
 								</div>
@@ -96,11 +98,19 @@
 		$("#exportBtn").click(function() {
 			var json = $("#searchForm").serialize();
 			var url = "export?" + json;
-			//alert(url)
 			window.open(url);
 		});
-
 		$('#reservation').daterangepicker();
+		init();
+
 	});
+	function init() {
+		var vals=$('#reservations').val();
+		if(vals=="")
+		{
+			$('#reservation').val("");
+		}
+	}
+	
 </script>
 </html>

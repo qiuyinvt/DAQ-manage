@@ -58,7 +58,7 @@
       role, created,salt)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{isSend,jdbcType=TINYINT}, #{enabled,jdbcType=TINYINT}, 
-      #{role,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}),##{salt,jdbcType=TIMESTAMP})
+      #{role,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP},#{salt,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="daq.manage.model.User" >
     insert into user
@@ -87,6 +87,9 @@
       <if test="created != null" >
         created,
       </if>
+      <if test="salt != null" >
+        salt,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -113,6 +116,9 @@
       <if test="created != null" >
         #{created,jdbcType=TIMESTAMP},
       </if>
+       <if test="salt != null" >
+         #{salt,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="daq.manage.model.User" >
@@ -136,6 +142,9 @@
       <if test="role != null" >
         role = #{role,jdbcType=VARCHAR},
       </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
       <if test="created != null" >
         created = #{created,jdbcType=TIMESTAMP},
       </if>
@@ -150,7 +159,8 @@
       is_send = #{isSend,jdbcType=TINYINT},
       enabled = #{enabled,jdbcType=TINYINT},
       role = #{role,jdbcType=VARCHAR},
-      created = #{created,jdbcType=TIMESTAMP}
+      created = #{created,jdbcType=TIMESTAMP},
+      salt = #{salt,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="queryPageList" resultMap="BaseResultMap" parameterType="java.util.Map">
