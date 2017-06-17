@@ -24,4 +24,11 @@ public class CollectService extends BaseService<Collect, Long> implements Collec
 	{
 		return collectMapper.getTotal(map);
 	}
+
+	@Override
+	public List<Collect> getList(Map<String, String> map) {
+		return collectMapper.getList(map);
+	}
+	
+	
 }
