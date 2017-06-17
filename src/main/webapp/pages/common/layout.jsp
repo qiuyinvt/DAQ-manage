@@ -12,14 +12,19 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/style/weui/css/weui.min.css"/>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/style/weui/css/jquery-weui.min.css"/>
 	
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/style/weui/css/daterangepicker.css"/>
+	
 	<script src="<%=request.getContextPath()%>/style/jquery/jquery.min.js"> </script>
 	<script src="<%=request.getContextPath()%>/style/weui/js/jquery-weui.min.js"> </script>
 	<script src="<%=request.getContextPath()%>/style/bootstrap/js/bootstrap.min.js"> </script>
 	<script src="<%=request.getContextPath()%>/style/common/base.js?v=2"> </script>
+	
+	<script src="<%=request.getContextPath()%>/style/weui/js/moment.min.js"> </script>
+	<script src="<%=request.getContextPath()%>/style/weui/js/daterangepicker.js"> </script>
 </head>
 <body class="skin-blue fixed">
 	<header class="main-header">
-	  <a href="<%=request.getContextPath()%>/admin/collect/view" class="logo">
+	  <a href="<%=request.getContextPath()%>/admin/view" class="logo">
 	    <!-- LOGO -->
 	    数据监测系统
 	  </a>
@@ -36,7 +41,7 @@
 	      <!-- Optionally, you can add icons to the links -->
 	      <li class="active" page="/admin/collect/view"><a href="<%=request.getContextPath()%>/admin/collect/view"><span>数据监测</span></a></li>
 	      <li class="active" page="/admin/user/list"><a href="<%=request.getContextPath()%>/admin/user/list"><span>用户管理</span></a></li>
-	      
+	      <li class="active" page="/admin/collect/list"><a href="<%=request.getContextPath()%>/admin/collect/list"><span>数据列表</span></a><span><</span></li>
 	     <!--  <li class="treeview active menu-open">
 	        <a href="#"><span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
 	        <ul class="treeview-menu">
