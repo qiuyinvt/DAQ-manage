@@ -31,9 +31,9 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
             passwordRetryCache.put(username, retryCount);
         }
 
-        if (retryCount.incrementAndGet() > 10) {
-            throw new ExcessiveAttemptsException("您重试密码超过10次,账号已被锁定!");
-        }
+//        if (retryCount.incrementAndGet() > 10) {
+//            throw new ExcessiveAttemptsException("您重试密码超过10次,账号已被锁定!");
+//        }
 
         boolean matches = super.doCredentialsMatch(token, info);
         if (matches) {
