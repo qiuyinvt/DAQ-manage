@@ -28,7 +28,7 @@
  
   <div class="register-box-body">
     <p class="login-box-msg">用户登录</p>
-    <form id="form" action="/login/login" method="post">
+    <form id="form" action="/admin/collect/view" method="post">
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="账号" label="账号" validate="required" name="account">
         <span class="help-block"></span>
@@ -60,7 +60,7 @@
 		CODES.form({
 			id:"form",
 			btn:"btn-primary",
-			url:"/login/login"
+			url:"/login/authenticate"
 		});
 	});
 </script>

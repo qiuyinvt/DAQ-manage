@@ -11,8 +11,8 @@
   <sql id="dynamicWhere">
 	<where>
 		<if test="id!= nul"> AND id  =#{id} </if>
-		<if test="type!= nul"> AND RISK_ID  =#{type} </if>
-		<if test="value!= nul"> AND REGION  LIKE '%${value}%'  </if>
+		<if test="type!= nul"> AND type LIKE '%${type}%'  </if>
+		<if test="value!= nul"> AND value  =#{value}  </if>
 		<if test="createTime!= nul"> AND created  =#{createTime} </if>
 		<if test="beginCreateTime!= nul"> AND created  >=#{beginCreateTime,jdbcType=TIMESTAMP} </if>
 		<if test="endCreateTime!= nul"> AND created <![CDATA[ <=#{endCreateTime,jdbcType=TIMESTAMP}]]> </if>
