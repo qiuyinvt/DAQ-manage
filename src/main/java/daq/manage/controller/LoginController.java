@@ -87,9 +87,10 @@ public class LoginController {
         catch (Exception ex) {
             if ("LockedAccountException".equals(ex.getClass().getSimpleName())) {
                 result.setMsg("您的账号已经被锁定!");
-            } else if ("ExcessiveAttemptsException".equals(ex.getClass().getSimpleName())) {
-                result.setMsg("您重试密码超过10次,账号已被锁定!");
             }
+//            else if ("ExcessiveAttemptsException".equals(ex.getClass().getSimpleName())) {
+//                result.setMsg("您重试密码超过10次,账号已被锁定!");
+//            }
         }
         return result;
     }
